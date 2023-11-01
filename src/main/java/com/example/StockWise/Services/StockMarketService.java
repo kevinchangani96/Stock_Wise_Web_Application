@@ -5,10 +5,15 @@ import com.example.StockWise.Services.Utility.ApiCallingMethod;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class StockMarketService {
     public StockData getStockData(String symbol) throws IOException {
         return ApiCallingMethod.apiCallingMethodByStock(symbol);
+    }
+
+    public List<StockData> getAllStockInfoData() throws IOException {
+        return ApiCallingMethod.getAllStockData();
     }
 }
