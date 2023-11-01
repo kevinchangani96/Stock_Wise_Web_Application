@@ -34,4 +34,6 @@ public class StockController {
     public StockDecision getStockDecisionByStockName(String symbol) throws IOException {
         return stockMarketService.getStockDecisionByStockName(symbol);
     }
+
+
 }

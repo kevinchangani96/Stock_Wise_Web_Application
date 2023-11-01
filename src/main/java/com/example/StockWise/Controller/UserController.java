@@ -20,6 +20,11 @@ public class UserController {
         return userService.registerUser(user);
     }
 
+    @PostMapping("/addFund")
+    private String addFund(@RequestParam String email,double amount) throws NoSuchAlgorithmException {
+        return userService.addFund(email,amount);
+    }
+
     @GetMapping("/login")
     private String loginUser(@RequestBody Credential credential) throws NoSuchAlgorithmException {
         return userService.loginUser(credential);

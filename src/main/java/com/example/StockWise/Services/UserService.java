@@ -56,4 +56,11 @@ public class UserService {
         }
 
     }
+
+    public String addFund(String email, double amount) {
+       User user= userRepo.findByUserEmail(email);
+       user.setFund(amount);
+       userRepo.save(user);
+       return "Success0";
+    }
 }
