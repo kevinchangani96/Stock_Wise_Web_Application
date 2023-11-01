@@ -2,6 +2,7 @@ package com.example.StockWise.Controller;
 
 
 import com.example.StockWise.Model.dto.StockData;
+import com.example.StockWise.Model.dto.StockDecision;
 import com.example.StockWise.Services.StockMarketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,5 +28,10 @@ public class StockController {
     @GetMapping("/getAllStockInfo")
     public List<StockData> getAllStockInfoData() throws IOException {
         return stockMarketService.getAllStockInfoData();
+    }
+
+    @GetMapping("/stockDecisionByStockName")
+    public StockDecision getStockDecisionByStockName(String symbol) throws IOException {
+        return stockMarketService.getStockDecisionByStockName(symbol);
     }
 }
