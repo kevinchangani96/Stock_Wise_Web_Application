@@ -41,6 +41,4 @@ public class StockController {
         return stockMarketService.getStatement(email);
     }
 
-
-
 }

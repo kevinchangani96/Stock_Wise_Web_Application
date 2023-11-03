@@ -62,9 +62,14 @@ public class UserService {
 
     public String addFund(String email, double amount) {
         User user = userRepo.findByUserEmail(email);
+        if (user.getStatus().equals("logged in")){
+
         user.setFund(user.getFund() + amount);
         userRepo.save(user);
-        return "Success";
+        return amount + "Fund Successfully Added : ";
+        }else {
+            return "Plz login first and then add Fund";
+        }
     }
 
     public String resetPassword(String email) {

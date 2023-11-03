@@ -18,8 +18,8 @@ public class PortfolioController {
     PortfolioService portfolioService;
 
     @GetMapping("/get")
-    private PortfolioDto getProtfolio(@RequestParam String email){
-        return portfolioService.getProtfolio(email);
+    private PortfolioDto getportfolio(@RequestParam String email){
+        return portfolioService.getportfolio(email);
     }
 
 }

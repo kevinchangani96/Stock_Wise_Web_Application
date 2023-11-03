@@ -12,7 +12,6 @@ import com.example.StockWise.Repository.UserRepo;
 import com.example.StockWise.Services.Utility.ApiCallingMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 
 @Service
@@ -114,7 +113,7 @@ public class ActivityService {
             } else {
                 Portfolio portfolio = portfolioRepo.findByEmailAndSymbol(email, order.getStockName());
                 if (portfolio.getQuantity() == order.getQuantity()) {
-                    stockActivity.setTotalAmount(portfolio.getCurrentAmount());
+                    stockActivity.setTotalAmount(Double.parseDouble(stockData.getCurrentPrice())*order.getQuantity());
                     stockActivity.setStockName(portfolio.getSymbol());
                     stockActivity.setQuantity(order.getQuantity());
                     stockActivity.setStatus("SELL");
@@ -128,6 +127,7 @@ public class ActivityService {
                     stockOrder.setUserName(user.getUserName());
                     stockOrder.setTotalAmount(Double.parseDouble(stockData.getCurrentPrice()) * order.getQuantity());
                     stockOrder.setStatus("SELL");
+
                     activityRepo.save(stockOrder);
                     user.setFund(user.getFund() + stockOrder.getTotalAmount());
                     userRepo.save(user);
@@ -138,7 +138,7 @@ public class ActivityService {
                 }
                 portfolio.setEmail(email);
                 portfolio.setSymbol(order.getStockName());
-                portfolio.setCurrentPrice(Double.parseDouble(stockData.getCurrentPrice()));
+                portfolio.setCurrentPrice(Double.parseDouble(stockData.getCurrentPrice()) * order.getQuantity());
                 portfolio.setInvestedAmount(portfolio.getInvestedAmount() - (portfolio.getBuyPrice() * order.getQuantity()));
                 portfolio.setQuantity(portfolio.getQuantity() - order.getQuantity());
                 portfolio.setBuyPrice(portfolio.getBuyPrice());
@@ -146,7 +146,7 @@ public class ActivityService {
                 portfolioRepo.save(portfolio);
 
 
-                stockActivity.setTotalAmount(portfolio.getCurrentAmount());
+                stockActivity.setTotalAmount(Double.parseDouble(stockData.getCurrentPrice()) * order.getQuantity());
                 stockActivity.setStockName(portfolio.getSymbol());
                 stockActivity.setQuantity(order.getQuantity());
                 stockActivity.setStatus("SELL");
