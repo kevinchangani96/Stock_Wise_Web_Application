@@ -1,6 +1,5 @@
 package com.example.StockWise.Controller;
 
-import com.example.StockWise.Model.User;
 import com.example.StockWise.Model.dto.StockActivity;
 import com.example.StockWise.Model.dto.StockOrderRequest;
 import com.example.StockWise.Services.ActivityService;
@@ -12,14 +11,20 @@ import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("/api/activity")
-public class Activity {
+public class ActivityController {
 
     @Autowired
     ActivityService activityService;
     @PostMapping("/buyStock")
-    private StockActivity BuyStock(@RequestBody StockOrderRequest order, @RequestParam String email) throws NoSuchAlgorithmException, IOException {
+    private StockActivity BuyStock(@RequestBody StockOrderRequest order, @RequestParam String email) throws  IOException {
         return activityService.BuyStock(order,email);
     }
+
+    @PostMapping("/sellStock")
+    private StockActivity SellStock(@RequestBody StockOrderRequest order,@RequestParam String email) throws IOException{
+        return activityService.SellStock(order,email);
+    }
+
 
 
 }

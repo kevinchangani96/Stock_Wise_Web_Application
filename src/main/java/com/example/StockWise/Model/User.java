@@ -15,12 +15,11 @@ public class User {
     private Long userid;
     private String userName;
 
-
-
     @Column(unique = true)
     private String userEmail;
     private String userPassword;
     private double fund=0;
 
     private  String status;
+    private String otp;
 }

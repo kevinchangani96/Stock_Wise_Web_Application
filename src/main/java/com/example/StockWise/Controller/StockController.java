@@ -1,6 +1,7 @@
 package com.example.StockWise.Controller;
 
 
+import com.example.StockWise.Model.StockOrder;
 import com.example.StockWise.Model.dto.StockData;
 import com.example.StockWise.Model.dto.StockDecision;
 import com.example.StockWise.Services.StockMarketService;
@@ -34,6 +35,12 @@ public class StockController {
     public StockDecision getStockDecisionByStockName(String symbol) throws IOException {
         return stockMarketService.getStockDecisionByStockName(symbol);
     }
+
+    @GetMapping("/statement")
+    public List<StockOrder> getStatement(String email)  {
+        return stockMarketService.getStatement(email);
+    }
+
 
 
 }

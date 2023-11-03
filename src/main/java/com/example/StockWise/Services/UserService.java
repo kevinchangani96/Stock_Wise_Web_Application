@@ -2,7 +2,9 @@ package com.example.StockWise.Services;
 
 import com.example.StockWise.Model.User;
 import com.example.StockWise.Model.dto.Credential;
+import com.example.StockWise.Model.dto.ResetDTO;
 import com.example.StockWise.Repository.UserRepo;
+import com.example.StockWise.Services.Utility.OTPGenerator;
 import com.example.StockWise.Services.Utility.PasswordEncrypter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.security.NoSuchAlgorithmException;
 public class UserService {
     @Autowired
     UserRepo userRepo;
+    @Autowired
+    EmailService emailService;
 
     public String registerUser(User user) throws NoSuchAlgorithmException {
 
-        if (userRepo.existsByuserEmail(user.getUserEmail())){
+        if (userRepo.existsByuserEmail(user.getUserEmail())) {
             return "Already Register";
         }
         String hashPass = PasswordEncrypter.hashPasswordWithStaticSecret(user.getUserPassword());
@@ -26,7 +30,7 @@ public class UserService {
     }
 
     public String loginUser(Credential credential) throws NoSuchAlgorithmException {
-        if (!userRepo.existsByuserEmail(credential.getEmail())){
+        if (!userRepo.existsByuserEmail(credential.getEmail())) {
             return "Please Create a Account";
         }
         String hashPass = PasswordEncrypter.hashPasswordWithStaticSecret(credential.getPassword());
@@ -46,21 +50,45 @@ public class UserService {
     public String signoutUser(String email) {
         User user = userRepo.findByUserEmail(email);
 
-        if (user.getStatus().equals("logged in")){
+        if (user.getStatus().equals("logged in")) {
             user.setStatus("log out");
             userRepo.save(user);
             return "logout successfully";
-        }
-        else {
+        } else {
             return "plz login first then click on logout ";
         }
 
     }
 
     public String addFund(String email, double amount) {
-       User user= userRepo.findByUserEmail(email);
-       user.setFund(amount);
-       userRepo.save(user);
-       return "Success0";
+        User user = userRepo.findByUserEmail(email);
+        user.setFund(user.getFund() + amount);
+        userRepo.save(user);
+        return "Success";
+    }
+
+    public String resetPassword(String email) {
+        if (!userRepo.existsByuserEmail(email)) {
+            return "User not Register";
+        }
+        User user = userRepo.findByUserEmail(email);
+        String otp = OTPGenerator.generateOTP();
+
+        user.setOtp(otp);
+        userRepo.save(user);
+        emailService.sendOtpEmail(email, otp);
+        return "Otp Sent Successfully";
+    }
+
+    public String verifyOtp(ResetDTO user) throws NoSuchAlgorithmException {
+        User existinguser = userRepo.findByUserEmail(user.getEmail());
+        if (user.getOtp().equals(user.getOtp())) {
+            String newHashPass = PasswordEncrypter.hashPasswordWithStaticSecret(user.getNewPass());
+            existinguser.setUserPassword(newHashPass);
+            userRepo.save(existinguser);
+            return "Your Password Reset";
+        } else {
+            return "Enter Your Valid Otp";
+        }
     }
 }
