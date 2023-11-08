@@ -105,43 +105,43 @@ public class ApiCallingMethod {
         return list;
     }
 
-    public static StockDecision getStockDecisionByStockName(String shareName) throws IOException {
-        StockDecision stockDecision = new StockDecision();
-        // Define the base URL
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://nse-market.p.rapidapi.com/stock_metrics").newBuilder();
-        urlBuilder.addQueryParameter("symbol", shareName);
-        String urlString = urlBuilder.build().toString();
-
-        try {
-            OkHttpClient client = new OkHttpClient();
-            Request request = new Request.Builder()
-                    .url(urlString)
-                    .get()
-                    .addHeader("X-RapidAPI-Host", "nse-market.p.rapidapi.com")
-                    .addHeader("X-RapidAPI-Key", "c005d0823cmshb3dbcbcd155520ap1c188bjsn9e28a416e7f2")
-                    .build();
-
-            Response response = client.newCall(request).execute();
-
-            if (response.isSuccessful()) {
-                InputStream inputStream = response.body().byteStream();
-                String jsonResponse = convertStreamToString(inputStream);
-
-                JSONObject jsonAPIResponse = new JSONObject(jsonResponse);
-
-                stockDecision.setStockName(jsonAPIResponse.optString("symbol"));
-                stockDecision.setCurrentPrice(jsonAPIResponse.optString("currentPrice"));
-                stockDecision.setRecommendation(jsonAPIResponse.optString("recommendationKey"));
-
-                System.out.println(jsonAPIResponse);
-            } else {
-                System.out.println("API call could not be made! Response code: " + response.code());
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-        }
-        return stockDecision;
-    }
+//    public static StockDecision getStockDecisionByStockName(String shareName) throws IOException {
+//        StockDecision stockDecision = new StockDecision();
+//        // Define the base URL
+//        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://nse-market.p.rapidapi.com/stock_metrics").newBuilder();
+//        urlBuilder.addQueryParameter("symbol", shareName);
+//        String urlString = urlBuilder.build().toString();
+//
+//        try {
+//            OkHttpClient client = new OkHttpClient();
+//            Request request = new Request.Builder()
+//                    .url(urlString)
+//                    .get()
+//                    .addHeader("X-RapidAPI-Host", "nse-market.p.rapidapi.com")
+//                    .addHeader("X-RapidAPI-Key", "c005d0823cmshb3dbcbcd155520ap1c188bjsn9e28a416e7f2")
+//                    .build();
+//
+//            Response response = client.newCall(request).execute();
+//
+//            if (response.isSuccessful()) {
+//                InputStream inputStream = response.body().byteStream();
+//                String jsonResponse = convertStreamToString(inputStream);
+//
+//                JSONObject jsonAPIResponse = new JSONObject(jsonResponse);
+//
+//                stockDecision.setStockName(jsonAPIResponse.optString("symbol"));
+//                stockDecision.setCurrentPrice(jsonAPIResponse.optString("currentPrice"));
+//                stockDecision.setRecommendation(jsonAPIResponse.optString("recommendationKey"));
+//
+//                System.out.println(jsonAPIResponse);
+//            } else {
+//                System.out.println("API call could not be made! Response code: " + response.code());
+//            }
+//        } catch (Exception e) {
+//            System.out.println("An error occurred: " + e.getMessage());
+//        }
+//        return stockDecision;
+//    }
 
 
     private static String convertStreamToString(InputStream inputStream) {

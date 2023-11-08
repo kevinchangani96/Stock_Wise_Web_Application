@@ -29,13 +29,13 @@ public class UserService {
         return "Register Successfully";
     }
 
-    public String loginUser(Credential credential) throws NoSuchAlgorithmException {
-        if (!userRepo.existsByuserEmail(credential.getEmail())) {
+    public String loginUser( String email,String password) throws NoSuchAlgorithmException {
+        if (!userRepo.existsByuserEmail(email)) {
             return "Please Create a Account";
         }
-        String hashPass = PasswordEncrypter.hashPasswordWithStaticSecret(credential.getPassword());
+        String hashPass = PasswordEncrypter.hashPasswordWithStaticSecret(password);
 
-        User user = userRepo.findByUserEmail(credential.getEmail());
+        User user = userRepo.findByUserEmail(email);
 
 
         if (hashPass.equals(user.getUserPassword())) {

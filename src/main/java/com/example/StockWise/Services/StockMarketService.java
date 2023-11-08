@@ -29,9 +29,9 @@ public class StockMarketService {
         return ApiCallingMethod.getAllStockData();
     }
 
-    public StockDecision getStockDecisionByStockName(String symbol) throws IOException {
-        return ApiCallingMethod.getStockDecisionByStockName(symbol);
-    }
+//    public StockDecision getStockDecisionByStockName(String symbol) throws IOException {
+//        return ApiCallingMethod.getStockDecisionByStockName(symbol);
+//    }
 
     public List<StockOrder> getStatement(String email) {
         User user = userRepo.findByUserEmail(email);
