@@ -32,55 +32,67 @@ The project follows a standard Spring Boot MVC structure and consists of the fol
 
 - **Signup:**
   - Endpoint: `/user/signup`
+  - Method: POST
   - Description: Sign up for a new account.
 
 - **Login:**
   - Endpoint: `/user/login`
+  - Method: GET
   - Description: Log in securely to your account.
 
 - **Deposit Funds:**
   - Endpoint: `/user/addFund`
+  - Method: POST
   - Description: Deposit funds into your account.
 
 - **Reset Password:**
   - Endpoint: `/user/resetPassword`
+  - Method: POST
   - Description: Reset your password.
 
 - **Verify OTP for Password Reset:**
   - Endpoint: `/user/verifyOTPRestPassword`
+  - Method: POST
   - Description: Verify your identity for password reset.
 
 - **Logout:**
   - Endpoint: `/user/logout`
+  - Method: GET
   - Description: Log out of your account.
 
 ### Stock Information and Transactions API
 
 - **Get Info for a Specific Stock:**
   - Endpoint: `/api/stocks/getInfoStockByName`
+  - Method: GET
   - Description: Retrieve real-time data for a specific stock symbol.
 
 - **Get Comprehensive Information about All Stocks:**
   - Endpoint: `/api/stocks/getAllStockInfo`
+  - Method: GET
   - Description: Get comprehensive information about all available stocks.
+
+- **Get Transaction History:**
+  - Endpoint: `/api/stocks/statement`
+  - Method: GET
+  - Description: Access your transaction history to track your investment journey.
 
 ### Activity and Portfolio Management API
 
 - **Buy Stock:**
   - Endpoint: `/api/activity/buyStock`
+  - Method: POST
   - Description: Purchase stocks securely.
 
 - **Sell Stock:**
   - Endpoint: `/api/activity/sellStock`
+  - Method: POST
   - Description: Sell stocks confidently.
 
 - **Get Portfolio:**
   - Endpoint: `/portfolio/get`
+  - Method: GET
   - Description: Securely purchase stocks and manage your investment portfolio.
-
-- **Get Transaction History:**
-  - Endpoint: `/api/stocks/statement`
-  - Description: Access your transaction history to track your investment journey.
 
 ---
 
@@ -94,7 +106,7 @@ To get started with this Banking System, follow these steps:
 
    ```shell
    git clone https://github.com/your-username/stock-market-app.git
-2. **Set up the required database (MySQL) and configure the database connection** in the `application.properties` file and also u have to setup SMTP for email OTP.
+2. **Set up the required database (MySQL) and configure the database connection** in the `application.properties` file, and also you have to set up SMTP for email OTP.
 
 3. **Build and run the application** using Maven or your preferred IDE.
   
